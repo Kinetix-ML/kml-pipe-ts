@@ -1,46 +1,65 @@
-export class CVVariable {
-    name: string
-    value: any
+export type CVVariable = {
+  id: string;
+  name: string;
+  dataType: DataType;
+  value?: any;
+};
 
-    constructor (name: string) {
-        this.name = name
-    }
+export type CVVariableConnection = {
+  id?: string;
+  connection?: CVVariable;
+  dataType: DataType;
+};
+
+export type CVNode = {
+  label: string;
+  operation: string;
+  parameters: CVVariable[];
+  inputs: [CVVariableConnection];
+  outputs: [CVVariable];
+  supportedPlatforms: [Platform];
+};
+export class CVNodeProcess {
+  cvnode: CVNode;
+
+  constructor(cvnode: CVNode) {
+    this.cvnode = cvnode;
+  }
+
+  async initialize() {}
+
+  async execute() {}
 }
 
-export class CVNode {
-    name: string
-    operation: string
-    inputs: CVVariable[]
-    outputs: CVVariable[]
+export type Project = {
+  id: string;
+  projectName: string;
+  owner: string;
+  versions: number[];
+};
 
-    constructor (name: string, operation: string, inputs: CVVariable[], outputs: CVVariable[]) {
-        this.name = name
-        this.operation = operation
-        this.inputs = inputs
-        this.outputs = outputs
-    }
+export type Version = {
+  id: string;
+  projectID: string;
+  version: number;
+  pipeline: CVPipeline;
+};
 
-    async initialize() {}
+export type CVPipeline = {
+  inputs: CVVariable[];
+  outputs: CVVariable[];
+  nodes: CVNode[];
+};
 
-    async execute() {}
+export enum DataType {
+  CVImage = "Image",
+  KPFrame = "KPFrame",
+  Vec = "Vec",
+  Double = "Double",
 }
 
-export class CVPipeline {
-    projectName: string
-    projectID: string
-    inputs: CVVariable[]
-    outputs: CVVariable[]
-    nodes: CVNode[][]
-
-    constructor (projectName: string, projectID: string, inputs: CVVariable[], outputs: CVVariable[], nodes: CVNode[][]) {
-        this.projectName = projectName
-        this.projectID = projectID
-        this.inputs = inputs
-        this.outputs = outputs
-        this.nodes = nodes
-    }
-
-    async initialize() {}
-
-    async execute() {}
+export enum Platform {
+  JS = "JS",
+  SWIFT = "Swift",
+  PYTHON = "Python",
 }
