@@ -1,8 +1,10 @@
+import { CVImage, Double, KPFrame, Vec } from "./types";
+
 export type CVVariable = {
   id: string;
   name: string;
   dataType: DataType;
-  value?: any;
+  value?: CVImage | KPFrame | Vec | Double;
 };
 
 export type CVVariableConnection = {
@@ -21,9 +23,11 @@ export type CVNode = {
 };
 export class CVNodeProcess {
   cvnode: CVNode;
+  vars: { [id: string]: any };
 
-  constructor(cvnode: CVNode) {
+  constructor(cvnode: CVNode, vars: { [id: string]: any }) {
     this.cvnode = cvnode;
+    this.vars = vars;
   }
 
   async initialize() {}
@@ -47,7 +51,7 @@ export type Version = {
 
 export type CVPipeline = {
   inputs: CVVariable[];
-  outputs: CVVariable[];
+  outputs: CVVariableConnection[];
   nodes: CVNode[];
 };
 
@@ -56,6 +60,7 @@ export enum DataType {
   KPFrame = "KPFrame",
   Vec = "Vec",
   Double = "Double",
+  NoDetections = "NoDetections",
 }
 
 export enum Platform {

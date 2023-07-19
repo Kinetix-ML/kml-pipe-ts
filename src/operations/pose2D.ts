@@ -5,7 +5,7 @@ import "@tensorflow/tfjs-backend-cpu";
 import "@tensorflow/tfjs-backend-webgl";
 import "@tensorflow/tfjs-node-gpu";
 import { CVImage, KPFrame } from "../types";
-import { CVNode, CVNodeProcess, CVVariable } from "../base_structs";
+import { CVNode, CVNodeProcess, CVVariable, DataType } from "../base_structs";
 // import '@tensorflow/tfjs-backend-wasm';
 
 export default class PoseDetector2D extends CVNodeProcess {
@@ -14,10 +14,6 @@ export default class PoseDetector2D extends CVNodeProcess {
     modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
   };
   detector?: poseDetection.PoseDetector;
-
-  constructor(cvnode: CVNode) {
-    super(cvnode);
-  }
 
   async initialize() {
     this.detector = await poseDetection.createDetector(
@@ -28,8 +24,11 @@ export default class PoseDetector2D extends CVNodeProcess {
 
   async execute() {
     let detectorOutput = await this.detector?.estimatePoses(
-      this.cvnode.inputs[0].connection?.value as CVImage
+      this.vars[this.cvnode.inputs[0].connection!.id] as CVImage
     );
-    this.cvnode.outputs[0].value = detectorOutput as KPFrame[];
+    this.vars[this.cvnode.outputs[0].id] =
+      detectorOutput && detectorOutput!.length > 0
+        ? (detectorOutput![0] as KPFrame)
+        : DataType.NoDetections;
   }
 }

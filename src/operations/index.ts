@@ -7,7 +7,7 @@ export const NodeCatalog: { [operation: string]: any } = {
   CalcJointAngles: CalcJointAngles,
 };
 
-export const initProcess = (cvnode: CVNode) => {
+export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
   let catalogItem = NodeCatalog[cvnode.operation];
-  return new catalogItem(cvnode);
+  return new catalogItem(cvnode, vars);
 };

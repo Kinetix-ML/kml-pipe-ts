@@ -9,6 +9,7 @@ import {
 } from "../../base_structs";
 import PoseDetector2D from "../pose2D";
 import { promises as fs } from "fs";
+import { CVImage } from "../../types";
 
 var inputVar: CVVariable = {
   id: "input-0-var",
@@ -25,6 +26,7 @@ var output: CVVariable = {
   name: "KPFrame Output",
   dataType: DataType.KPFrame,
 };
+var vars: { [id: string]: any } = {};
 var cvnode: CVNode = {
   label: "Pose Detector 2D",
   operation: "PoseDetector2D",
@@ -40,7 +42,7 @@ var cvnode: CVNode = {
   outputs: [output],
   supportedPlatforms: [Platform.JS],
 };
-var poseDetector2D = new PoseDetector2D(cvnode);
+var poseDetector2D = new PoseDetector2D(cvnode, vars);
 
 test("PoseDetector2D Initializes", async () => {
   await poseDetector2D.initialize();
@@ -50,7 +52,7 @@ test("PoseDetector2D Initializes", async () => {
 test("PoseDetector2D Executes", async () => {
   const imageBuffer = await fs.readFile("src/operations/__tests__/test1.jpeg");
   const inputTensor = node.decodeImage(imageBuffer);
-  input.connection!.value = inputTensor;
+  vars[input.connection!.id] = inputTensor as CVImage;
   await poseDetector2D.execute();
-  expect(output.value).toHaveLength(1);
+  expect(vars[output.id]).toHaveProperty("keypoints");
 });
