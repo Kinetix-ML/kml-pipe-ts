@@ -16,6 +16,9 @@ export default class PoseDetector2D extends CVNodeProcess {
   detector?: poseDetection.PoseDetector;
 
   async initialize() {
+    this.confidenceThreshold = this.vars[
+      this.cvnode.parameters[0].id
+    ] as number;
     this.detector = await poseDetection.createDetector(
       poseDetection.SupportedModels.MoveNet,
       this.detectorConfig

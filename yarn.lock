@@ -691,6 +691,11 @@
     rimraf "^2.6.2"
     tar "^4.4.6"
 
+"@tensorflow/tfjs-tflite@^0.0.1-alpha.9":
+  version "0.0.1-alpha.9"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-tflite/-/tfjs-tflite-0.0.1-alpha.9.tgz#bd01174f5031d735016d8192c78195f1b4b4fe5c"
+  integrity sha512-m24x8edwEDPn9iSYOIY+4XPVqx2J6nquZiWtjAyQNWviWhpr+rASq0vuXWipbRlQape5epKtTMEou8zD86Ngjg==
+
 "@tensorflow/tfjs@4.8.0":
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs/-/tfjs-4.8.0.tgz#58b2b8d1bcf4249da7bb2ebecdaf7e8be87f01fd"

@@ -39,6 +39,9 @@ export class KMLPipeline {
       let newExecNode = initProcess(node, this.vars);
       initPromises.push(newExecNode.initialize());
       this.execNodes[node.label] = newExecNode;
+      node.parameters.forEach((param) => {
+        this.vars[param.id] = param.value;
+      });
     });
     await Promise.all(initPromises);
   }
