@@ -15,7 +15,7 @@ export default class CalcKeyPointVelocities extends CVNodeProcess {
   async initialize() {}
 
   async execute() {
-    let input = this.vars[this.cvnode.inputs[0].connection!.id];
+    let input = this.params[this.cvnode.inputs[0].connection!.id];
     if (input == DataType.NoDetections) {
       this.vars[this.cvnode.outputs[0].id] = DataType.NoDetections;
       return;
