@@ -1,14 +1,17 @@
 {
   "name": "kml-pipe-ts",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "prepublish": "npm run build",
     "test": "jest",
-    "build": "tsc"
+    "build": "rm -rf dist && tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kinetix ML",
   "license": "ISC",
   "devDependencies": {
     "@inrupt/jest-jsdom-polyfills": "^2.1.0",
