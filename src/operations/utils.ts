@@ -14,3 +14,8 @@ export const toDeg = (rads: number) => {
   var pi = Math.PI;
   return rads * (180 / pi);
 };
+
+export const vectorLength = (vals: number[]) => {
+  let sum = vals.reduce((acc, cur) => cur + acc ** 2);
+  return Math.sqrt(sum);
+};
