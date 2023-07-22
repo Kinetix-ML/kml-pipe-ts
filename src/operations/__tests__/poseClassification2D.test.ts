@@ -56,7 +56,8 @@ var vars: { [id: string]: any } = {
   "Model Weights":
     "https://storage.cloud.google.com/kml-platform.appspot.com/c5htBpzBRmdVi494OS85/pose_classifier.tflite?authuser=0",
 };
-var poseClassification2D = new PoseClassification2D(cvnode2, vars);
+var params: { [id: string]: any } = {};
+var poseClassification2D = new PoseClassification2D(cvnode2, vars, params);
 
 test("PoseDetector2D and PoseClassification2D Initializes", async () => {
   await poseClassification2D.initialize();

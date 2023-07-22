@@ -24,10 +24,16 @@ export type CVNode = {
 export class CVNodeProcess {
   cvnode: CVNode;
   vars: { [id: string]: any };
+  params: { [id: string]: any };
 
-  constructor(cvnode: CVNode, vars: { [id: string]: any }) {
+  constructor(
+    cvnode: CVNode,
+    vars: { [id: string]: any },
+    params: { [id: string]: any }
+  ) {
     this.cvnode = cvnode;
     this.vars = vars;
+    this.params = params;
   }
 
   async initialize() {}

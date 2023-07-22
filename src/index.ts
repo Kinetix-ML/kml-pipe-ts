@@ -19,6 +19,7 @@ export class KMLPipeline {
   pipeline?: CVPipeline;
   nodes?: CVNode[];
   execNodes: { [label: string]: any } = {};
+  params: { [id: string]: any } = {};
   vars: { [id: string]: any } = {};
 
   constructor(projectName: string, projectVersion: number, apiKey: string) {
@@ -39,11 +40,11 @@ export class KMLPipeline {
     this.nodes = version.pipeline.nodes;
     let initPromises: Promise<any>[] = [];
     this.pipeline.nodes.forEach((node) => {
-      let newExecNode = initProcess(node, this.vars);
+      let newExecNode = initProcess(node, this.vars, this.params);
       initPromises.push(newExecNode.initialize());
       this.execNodes[node.label] = newExecNode;
       node.parameters.forEach((param) => {
-        this.vars[param.id] = param.value;
+        this.params[param.id] = param.value;
       });
     });
     await Promise.all(initPromises);
@@ -60,6 +61,7 @@ export class KMLPipeline {
       );
     for (let i = 0; i < inputValues.length; i++) {
       this.vars[this.pipeline!.inputs[i].id] = inputValues[i] as CVImage;
+      console.log("Set Pipeline Input Variables " + JSON.stringify(this.vars));
     }
 
     // run execution
@@ -76,21 +78,31 @@ export class KMLPipeline {
       readyNodes = checkReadyNodes(this.nodes!, executedNodes, this.vars);
     }
 
-    return this.pipeline.outputs.map((output) => ({
+    let res = this.pipeline.outputs.map((output) => ({
       ...output,
       value: this.vars[output.connection!.id],
     }));
+
+    // reset execution state
+    clearVars(this.vars);
+    return res;
   }
 }
+
+const clearVars = (vars: { [id: string]: any }) => {
+  Object.keys(vars).forEach((id) => vars[id] == undefined);
+};
 
 const checkReadyNodes = (
   nodes: CVNode[],
   executedNodes: CVNode[],
   vars: { [id: string]: any }
 ) =>
-  nodes.filter(
-    (node) =>
-      executedNodes.filter((n) => n.label == node.label).length == 0 &&
+  nodes.filter((node) => {
+    let notExecuted =
+      executedNodes.filter((n) => n.label == node.label).length == 0;
+    let inputData =
       node.inputs.filter((input) => vars[input.connection!.id] != undefined)
-        .length == node.inputs.length
-  );
+        .length == node.inputs.length;
+    return notExecuted && inputData;
+  });

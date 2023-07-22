@@ -13,7 +13,11 @@ export const NodeCatalog: { [operation: string]: any } = {
   SmoothVecs: SmoothVecs,
 };
 
-export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
+export const initProcess = (
+  cvnode: CVNode,
+  vars: { [id: string]: any },
+  params: { [id: string]: any }
+) => {
   let catalogItem = NodeCatalog[cvnode.operation];
-  return new catalogItem(cvnode, vars);
+  return new catalogItem(cvnode, vars, params);
 };

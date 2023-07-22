@@ -28,6 +28,7 @@ var output: CVVariable = {
   dataType: DataType.KPFrame,
 };
 var vars: { [id: string]: any } = {};
+var params: { [id: string]: any } = {};
 var cvnode: CVNode = {
   label: "Pose Detector 2D",
   operation: "PoseDetector2D",
@@ -43,7 +44,7 @@ var cvnode: CVNode = {
   outputs: [output],
   supportedPlatforms: [Platform.JS],
 };
-var poseDetector2D = new PoseDetector2D(cvnode, vars);
+var poseDetector2D = new PoseDetector2D(cvnode, vars, params);
 
 test("PoseDetector2D Initializes", async () => {
   await poseDetector2D.initialize();

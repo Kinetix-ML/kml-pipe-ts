@@ -13,7 +13,7 @@ export default class SmoothVecs extends CVNodeProcess {
   frameCount: Int = 10;
   buffer: Vec[] = [];
   async initialize() {
-    this.frameCount = this.vars[this.cvnode.parameters[0].id] as Int;
+    this.frameCount = this.params[this.cvnode.parameters[0].id] as Int;
   }
 
   async execute() {
