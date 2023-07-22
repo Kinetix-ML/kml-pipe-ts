@@ -4,7 +4,7 @@ export type CVVariable = {
   id: string;
   name: string;
   dataType: DataType;
-  value?: CVImage | KPFrame | Vec | Double;
+  value?: CVImage | KPFrame | Vec | Double | String;
 };
 
 export type CVVariableConnection = {
@@ -61,6 +61,7 @@ export enum DataType {
   Vec = "Vec",
   Double = "Double",
   NoDetections = "NoDetections",
+  String = "String",
 }
 
 export enum Platform {

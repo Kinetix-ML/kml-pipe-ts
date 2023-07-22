@@ -5,3 +5,5 @@ export type CVImage = PixelInput;
 export type KPFrame = Pose;
 export type Vec = number[];
 export type Double = number;
+export type Int = number;
+export type String = string;

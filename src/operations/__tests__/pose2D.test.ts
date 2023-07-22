@@ -1,4 +1,3 @@
-import { node } from "@tensorflow/tfjs-node-gpu";
 import {
   CVNode,
   CVPipeline,
@@ -9,7 +8,9 @@ import {
 } from "../../base_structs";
 import PoseDetector2D from "../pose2D";
 import { promises as fs } from "fs";
+import { exp, node } from "@tensorflow/tfjs-node-gpu";
 import { CVImage } from "../../types";
+import "cross-fetch/polyfill";
 
 var inputVar: CVVariable = {
   id: "input-0-var",
@@ -54,5 +55,6 @@ test("PoseDetector2D Executes", async () => {
   const inputTensor = node.decodeImage(imageBuffer);
   vars[input.connection!.id] = inputTensor as CVImage;
   await poseDetector2D.execute();
+  console.log(vars[output.id]);
   expect(vars[output.id]).toHaveProperty("keypoints");
 });

@@ -13,6 +13,7 @@ import { CVImage } from "./types";
 export class KMLPipeline {
   projectName: string;
   projectVersion: number;
+  apiKey: string;
   project?: Project;
   version?: Version;
   pipeline?: CVPipeline;
@@ -20,15 +21,17 @@ export class KMLPipeline {
   execNodes: { [label: string]: any } = {};
   vars: { [id: string]: any } = {};
 
-  constructor(projectName: string, projectVersion: number) {
+  constructor(projectName: string, projectVersion: number, apiKey: string) {
     this.projectName = projectName;
     this.projectVersion = projectVersion;
+    this.apiKey = apiKey;
   }
 
   async initialize() {
     let { project, version } = await getProjectVersion(
       this.projectName,
-      this.projectVersion
+      this.projectVersion,
+      this.apiKey
     );
     this.project = project;
     this.version = version;
@@ -49,7 +52,12 @@ export class KMLPipeline {
   async execute(inputValues: any[]) {
     // make sure inputs are correct
     if (inputValues.length != this.pipeline?.inputs.length)
-      throw new Error("[Pipeline Execution Error] Incorrect Number of Inputs");
+      throw new Error(
+        "[Pipeline Execution Error] Incorrect Number of Inputs. Expected: " +
+          this.pipeline?.inputs.length +
+          " but got: " +
+          inputValues.length
+      );
     for (let i = 0; i < inputValues.length; i++) {
       this.vars[this.pipeline!.inputs[i].id] = inputValues[i] as CVImage;
     }
