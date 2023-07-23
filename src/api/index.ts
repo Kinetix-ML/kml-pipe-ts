@@ -1,4 +1,4 @@
-import { Project, Version } from "./base_structs";
+import { Project, Version } from "../base_structs/index.js";
 
 export const getProjectVersion = async (
   projectName: string,

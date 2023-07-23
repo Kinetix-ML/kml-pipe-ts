@@ -1,4 +1,4 @@
-import { getProjectVersion } from "./api";
+import { getProjectVersion } from "./api/index.js";
 import {
   CVNode,
   CVNodeProcess,
@@ -6,9 +6,9 @@ import {
   CVVariable,
   Project,
   Version,
-} from "./base_structs";
-import { initProcess } from "./operations";
-import { CVImage } from "./types";
+} from "./base_structs/index.js";
+import { initProcess } from "./operations/index.js";
+import { CVImage } from "./types/index.js";
 
 export class KMLPipeline {
   projectName: string;

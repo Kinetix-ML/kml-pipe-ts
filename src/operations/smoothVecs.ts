@@ -3,10 +3,14 @@ import * as tf from "@tensorflow/tfjs-core";
 // Register one of the TF.js backends.
 import "@tensorflow/tfjs-backend-cpu";
 import "@tensorflow/tfjs-backend-webgl";
-import "@tensorflow/tfjs-node-gpu";
-import { CVImage, Double, Int, KPFrame, Vec } from "../types";
-import { CVNode, CVNodeProcess, CVVariable, DataType } from "../base_structs";
-import { calc3PtAngle } from "./utils";
+import { CVImage, Double, Int, KPFrame, Vec } from "../types/index.js";
+import {
+  CVNode,
+  CVNodeProcess,
+  CVVariable,
+  DataType,
+} from "../base_structs/index.js";
+import { calc3PtAngle } from "./utils.js";
 // import '@tensorflow/tfjs-backend-wasm';
 
 export default class SmoothVecs extends CVNodeProcess {

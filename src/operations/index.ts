@@ -1,9 +1,9 @@
-import { CVNode, CVNodeProcess } from "../base_structs";
-import CalcJointAngles from "./calcJointAngles";
-import CalcKeyPointVelocities from "./calcKeyPointVelocities";
-import PoseDetector2D from "./pose2D";
-import SmoothKeyPoints from "./smoothKeyPoints";
-import SmoothVecs from "./smoothVecs";
+import { CVNode, CVNodeProcess } from "../base_structs/index.js";
+import CalcJointAngles from "./calcJointAngles.js";
+import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
+import PoseDetector2D from "./pose2D.js";
+import SmoothKeyPoints from "./smoothKeyPoints.js";
+import SmoothVecs from "./smoothVecs.js";
 
 export const NodeCatalog: { [operation: string]: any } = {
   PoseDetection2D: PoseDetector2D,

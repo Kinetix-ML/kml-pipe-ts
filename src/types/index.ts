@@ -1,7 +1,13 @@
 import { Pose } from "@tensorflow-models/pose-detection";
-import { PixelInput } from "@tensorflow-models/pose-detection/dist/shared/calculators/interfaces/common_interfaces";
+import { Tensor3D } from "@tensorflow/tfjs-core";
 
-export type CVImage = PixelInput;
+export type CVImage =
+  | Tensor3D
+  | ImageData
+  | HTMLVideoElement
+  | HTMLImageElement
+  | HTMLCanvasElement
+  | ImageBitmap;
 export type KPFrame = Pose;
 export type Vec = number[];
 export type Double = number;

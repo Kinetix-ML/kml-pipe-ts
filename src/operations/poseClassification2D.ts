@@ -3,10 +3,14 @@ import * as tf from "@tensorflow/tfjs-core";
 // Register one of the TF.js backends.
 import "@tensorflow/tfjs-backend-cpu";
 import "@tensorflow/tfjs-backend-webgl";
-import "@tensorflow/tfjs-node-gpu";
 import * as tflite from "@tensorflow/tfjs-tflite";
-import { CVImage, KPFrame } from "../types";
-import { CVNode, CVNodeProcess, CVVariable, DataType } from "../base_structs";
+import { CVImage, KPFrame } from "../types/index.js";
+import {
+  CVNode,
+  CVNodeProcess,
+  CVVariable,
+  DataType,
+} from "../base_structs/index.js";
 // import '@tensorflow/tfjs-backend-wasm';
 
 export default class PoseClassification2D extends CVNodeProcess {

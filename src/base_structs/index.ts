@@ -1,4 +1,4 @@
-import { CVImage, Double, KPFrame, Vec } from "./types";
+import { CVImage, Double, KPFrame, Vec } from "../types/index.js";
 
 export type CVVariable = {
   id: string;
