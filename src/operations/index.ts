@@ -1,6 +1,7 @@
 import { CVNode, CVNodeProcess } from "../base_structs/index.js";
 import CalcJointAngles from "./calcJointAngles.js";
 import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
+import DrawKeyPoints from "./drawKeyPoints.js";
 import PoseDetector2D from "./pose2D.js";
 import SmoothKeyPoints from "./smoothKeyPoints.js";
 import SmoothVecs from "./smoothVecs.js";
@@ -11,6 +12,7 @@ export const NodeCatalog: { [operation: string]: any } = {
   SmoothKeyPoints: SmoothKeyPoints,
   CalcKeyPointVelocities: CalcKeyPointVelocities,
   SmoothVecs: SmoothVecs,
+  DrawKeyPoints: DrawKeyPoints,
 };
 
 export const initProcess = (

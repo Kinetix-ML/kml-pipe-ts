@@ -17,8 +17,8 @@ export type CVNode = {
   label: string;
   operation: string;
   parameters: CVVariable[];
-  inputs: [CVVariableConnection];
-  outputs: [CVVariable];
+  inputs: CVVariableConnection[];
+  outputs: CVVariable[];
   supportedPlatforms: [Platform];
 };
 export class CVNodeProcess {
@@ -68,6 +68,7 @@ export enum DataType {
   Double = "Double",
   NoDetections = "NoDetections",
   String = "String",
+  Canvas = "Canvas",
 }
 
 export enum Platform {

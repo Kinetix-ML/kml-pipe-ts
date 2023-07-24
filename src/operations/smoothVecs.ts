@@ -27,7 +27,7 @@ export default class SmoothVecs extends CVNodeProcess {
       return;
     }
     this.buffer.push(input);
-    if (this.buffer.length > this.frameCount) this.buffer.slice(0, 1);
+    if (this.buffer.length > this.frameCount) this.buffer.shift();
     this.vars[this.cvnode.outputs[0].id] = this.averageFrames();
   }
 
