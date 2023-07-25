@@ -15,11 +15,7 @@ export const NodeCatalog: { [operation: string]: any } = {
   DrawKeyPoints: DrawKeyPoints,
 };
 
-export const initProcess = (
-  cvnode: CVNode,
-  vars: { [id: string]: any },
-  params: { [id: string]: any }
-) => {
+export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
   let catalogItem = NodeCatalog[cvnode.operation];
-  return new catalogItem(cvnode, vars, params);
+  return new catalogItem(cvnode, vars);
 };

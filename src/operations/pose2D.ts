@@ -16,15 +16,15 @@ export default class PoseDetector2D extends CVNodeProcess {
   confidenceThreshold: number = 0.3;
   detectorConfig = {
     modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
+    scoreThreshold: this.confidenceThreshold,
   };
   detector?: poseDetection.PoseDetector;
 
   async initialize() {
     await tf.setBackend("webgl");
     await tf.ready();
-    this.confidenceThreshold = this.params[
-      this.cvnode.parameters[0].id
-    ] as number;
+    this.confidenceThreshold = this.cvnode.parameters[0].value as number;
+    this.detectorConfig.scoreThreshold = this.confidenceThreshold;
     this.detector = await poseDetection.createDetector(
       poseDetection.SupportedModels.MoveNet,
       this.detectorConfig

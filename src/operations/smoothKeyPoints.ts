@@ -17,7 +17,7 @@ export default class SmoothKeyPoints extends CVNodeProcess {
   frameCount: Int = 10;
   buffer: KPFrame[] = [];
   async initialize() {
-    this.frameCount = this.params[this.cvnode.parameters[0].id] as Int;
+    this.frameCount = this.cvnode.parameters[0].value as Int;
   }
 
   async execute() {
@@ -28,20 +28,20 @@ export default class SmoothKeyPoints extends CVNodeProcess {
     }
     this.buffer.push(input);
     if (this.buffer.length > this.frameCount) this.buffer.shift();
-    this.vars[this.cvnode.outputs[0].id] = this.averageFrames();
+    this.vars[this.cvnode.outputs[0].id] = this.averageFrames(this.buffer);
   }
 
-  private averageFrames(): KPFrame {
-    let res = Object.assign(this.buffer[0]);
-    for (let i = 0; i < this.buffer[0].keypoints.length; i++) {
+  private averageFrames(buffer: KPFrame[]): KPFrame {
+    let res = { ...buffer[0] };
+    for (let i = 0; i < buffer[0].keypoints.length; i++) {
       // find sum of scores for denominator of weighted average
-      let sumScores = this.buffer.reduce(
+      let sumScores = buffer.reduce(
         (acc, cur) => acc + (cur.keypoints[i].score as number),
         0
       );
 
       // calculate new x value using weighted average of all of the x coordinates
-      let newX = this.buffer.reduce(
+      let newX = buffer.reduce(
         (acc, cur) =>
           acc +
           cur.keypoints[i].x * ((cur.keypoints[i].score as number) / sumScores),
@@ -49,7 +49,7 @@ export default class SmoothKeyPoints extends CVNodeProcess {
       );
 
       // calculate new y value using weighted average of all of the y coordinates
-      let newY = this.buffer.reduce(
+      let newY = buffer.reduce(
         (acc, cur) =>
           acc +
           cur.keypoints[i].y * ((cur.keypoints[i].score as number) / sumScores),
@@ -58,10 +58,10 @@ export default class SmoothKeyPoints extends CVNodeProcess {
 
       // calculate new score value using average of all of the scores coordinates
       let newScore =
-        this.buffer.reduce(
+        buffer.reduce(
           (acc, cur) => acc + (cur.keypoints[i].score as number),
           0
-        ) / this.buffer.length;
+        ) / buffer.length;
 
       // returning new keypoint
       res.keypoints[i] = {
@@ -74,8 +74,8 @@ export default class SmoothKeyPoints extends CVNodeProcess {
 
     // average overall score
     res.score =
-      this.buffer.reduce((acc, cur) => acc + (cur.score as number), 0) /
-      this.buffer.length;
+      buffer.reduce((acc, cur) => acc + (cur.score as number), 0) /
+      buffer.length;
 
     return res as KPFrame;
   }

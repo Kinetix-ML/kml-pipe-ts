@@ -19,7 +19,6 @@ export class KMLPipeline {
   pipeline?: CVPipeline;
   nodes?: CVNode[];
   execNodes: { [label: string]: any } = {};
-  params: { [id: string]: any } = {};
   vars: { [id: string]: any } = {};
 
   constructor(projectName: string, projectVersion: number, apiKey: string) {
@@ -40,12 +39,9 @@ export class KMLPipeline {
     this.nodes = version.pipeline.nodes;
     let initPromises: Promise<any>[] = [];
     this.pipeline.nodes.forEach((node) => {
-      let newExecNode = initProcess(node, this.vars, this.params);
+      let newExecNode = initProcess(node, this.vars);
       initPromises.push(newExecNode.initialize());
       this.execNodes[node.label] = newExecNode;
-      node.parameters.forEach((param) => {
-        this.params[param.id] = param.value;
-      });
     });
     await Promise.all(initPromises);
   }
