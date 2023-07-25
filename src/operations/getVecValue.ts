@@ -13,16 +13,19 @@ import {
 import { calc3PtAngle } from "./utils.js";
 // import '@tensorflow/tfjs-backend-wasm';
 
-// NOTE: typing not enforced currently
-export default class Constant extends CVNodeProcess {
-  value: any = 0;
-  dataType: DataType.String = DataType.String;
+export default class GetVecValue extends CVNodeProcess {
+  index: Int = 0;
   async initialize() {
-    this.value = this.cvnode.parameters[0].value;
-    this.dataType = this.cvnode.parameters[1].value as DataType.String;
+    this.index = this.cvnode.parameters[0].value as Int;
   }
 
   async execute() {
-    this.vars[this.cvnode.outputs[0].id] = this.value;
+    let input = this.vars[this.cvnode.inputs[0].connection!.id];
+    if (input == DataType.NoDetections) {
+      this.vars[this.cvnode.outputs[0].id] = DataType.NoDetections;
+      return;
+    }
+
+    this.vars[this.cvnode.outputs[0].id] = input[this.index];
   }
 }

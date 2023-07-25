@@ -19,3 +19,7 @@ export const vectorLength = (vals: number[]) => {
   let sum = vals.reduce((acc, cur) => cur + acc ** 2);
   return Math.sqrt(sum);
 };
+
+export const kptDist = (kpt1: Keypoint, kpt2: Keypoint) => {
+  return vectorLength([kpt2.x - kpt1.x, kpt2.y - kpt1.y]);
+};
