@@ -8,3 +8,8 @@ export type Double = number;
 export type Int = number;
 export type String = string;
 export type Canvas = HTMLCanvasElement;
+export type Label = {
+  x: number;
+  y: number;
+  value: string;
+};
