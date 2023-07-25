@@ -69,6 +69,7 @@ export enum DataType {
   NoDetections = "NoDetections",
   String = "String",
   Canvas = "Canvas",
+  Any = "Any",
 }
 
 export enum Platform {
