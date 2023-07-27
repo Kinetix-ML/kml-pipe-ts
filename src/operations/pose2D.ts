@@ -37,7 +37,6 @@ export default class PoseDetector2D extends CVNodeProcess {
         this.vars[this.cvnode.inputs[0].connection!.id] as CVImage
       )
       .catch((err) => console.warn(err));
-    console.log(detectorOutput);
     this.vars[this.cvnode.outputs[0].id] =
       detectorOutput && detectorOutput!.length > 0
         ? (detectorOutput![0] as KPFrame)

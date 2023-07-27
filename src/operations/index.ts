@@ -9,6 +9,7 @@ import DeconstructKeyPoint from "./deconstructKeyPoint.js";
 import DivideInputs from "./divideInputs.js";
 import DrawKeyPoints from "./drawKeyPoints.js";
 import DrawLabels from "./drawLabels.js";
+import FaceMeshDetection from "./faceMeshDetect.js";
 import GetKeyPoint from "./getKeyPoint.js";
 import GetVecValue from "./getVecValue.js";
 import KPDist from "./kpDist.js";
@@ -42,6 +43,7 @@ export const NodeCatalog: { [operation: string]: any } = {
   SetVecValue: SetVecValue,
   ThreeKPAngle: ThreeKPAngle,
   KPDist: KPDist,
+  FaceMeshDetection: FaceMeshDetection,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
