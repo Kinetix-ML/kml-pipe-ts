@@ -3,6 +3,7 @@ import ThreeKPAngle from "./3kptAngle.js";
 import AddInputs from "./addInputs.js";
 import CalcJointAngles from "./calcJointAngles.js";
 import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
+import Conditional from "./conditional.js";
 import Constant from "./constant.js";
 import CreateKeyPoint from "./createKeyPoint.js";
 import DeconstructKeyPoint from "./deconstructKeyPoint.js";
@@ -20,6 +21,7 @@ import SetKeyPoint from "./setkeyPoint.js";
 import SmoothKeyPoints from "./smoothKeyPoints.js";
 import SmoothVecs from "./smoothVecs.js";
 import SubtractInputs from "./subtractInputs.js";
+import Switch from "./switch.js";
 import { kptDist } from "./utils.js";
 
 export const NodeCatalog: { [operation: string]: any } = {
@@ -44,6 +46,8 @@ export const NodeCatalog: { [operation: string]: any } = {
   ThreeKPAngle: ThreeKPAngle,
   KPDist: KPDist,
   FaceMeshDetection: FaceMeshDetection,
+  Conditional: Conditional,
+  Switch: Switch,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {

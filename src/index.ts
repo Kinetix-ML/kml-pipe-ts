@@ -64,7 +64,7 @@ export class KMLPipeline {
     let executedNodes: CVNode[] = [];
     let readyNodes = checkReadyNodes(this.nodes!, executedNodes, this.vars);
     if (readyNodes.length == 0) throw new Error("No Nodes to Execute");
-    while (executedNodes.length < this.nodes!.length) {
+    while (readyNodes.length > 0) {
       if (readyNodes.length == 0) throw new Error("Nodes Not Ready");
       let nodePromises: Promise<any>[] = readyNodes.map((node) =>
         this.execNodes[node.label].execute()
