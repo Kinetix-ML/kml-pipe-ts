@@ -55,6 +55,9 @@ export class KMLPipeline {
           " but got: " +
           inputValues.length
       );
+
+    // reset execution state
+    this.vars = {};
     for (let i = 0; i < inputValues.length; i++) {
       this.vars[this.pipeline!.inputs[i].id] = inputValues[i] as CVImage;
       console.log("Set Pipeline Input Variables " + JSON.stringify(this.vars));
@@ -76,11 +79,11 @@ export class KMLPipeline {
 
     let res = this.pipeline.outputs.map((output) => ({
       ...output,
-      value: this.vars[output.connection!.id],
+      value: this.vars[output.connection!.id]
+        ? Object.assign(this.vars[output.connection!.id])
+        : undefined,
     }));
 
-    // reset execution state
-    clearVars(this.vars);
     return res;
   }
 }

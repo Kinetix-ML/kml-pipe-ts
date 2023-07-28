@@ -6,9 +6,11 @@ import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
 import Conditional from "./conditional.js";
 import Constant from "./constant.js";
 import CreateKeyPoint from "./createKeyPoint.js";
+import CreateLabel from "./createLabel.js";
 import DeconstructKeyPoint from "./deconstructKeyPoint.js";
 import DivideInputs from "./divideInputs.js";
 import DrawKeyPoints from "./drawKeyPoints.js";
+import DrawLabel from "./drawLabel.js";
 import DrawLabels from "./drawLabels.js";
 import FaceMeshDetection from "./faceMeshDetect.js";
 import GetKeyPoint from "./getKeyPoint.js";
@@ -48,6 +50,8 @@ export const NodeCatalog: { [operation: string]: any } = {
   FaceMeshDetection: FaceMeshDetection,
   Conditional: Conditional,
   Switch: Switch,
+  CreateLabel: CreateLabel,
+  DrawLabel: DrawLabel,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
