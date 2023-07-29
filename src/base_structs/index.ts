@@ -14,6 +14,7 @@ export type CVVariableConnection = {
 };
 
 export type CVNode = {
+  id: string;
   label: string;
   operation: string;
   parameters: CVVariable[];

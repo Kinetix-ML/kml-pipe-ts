@@ -41,7 +41,7 @@ export class KMLPipeline {
     this.pipeline.nodes.forEach((node) => {
       let newExecNode = initProcess(node, this.vars);
       initPromises.push(newExecNode.initialize());
-      this.execNodes[node.label] = newExecNode;
+      this.execNodes[node.id] = newExecNode;
     });
     await Promise.all(initPromises);
   }
@@ -61,20 +61,17 @@ export class KMLPipeline {
     for (let i = 0; i < inputValues.length; i++) {
       this.vars[this.pipeline!.inputs[i].id] = inputValues[i] as CVImage;
     }
-    console.log("Set Pipeline Input Variables " + JSON.stringify(this.vars));
 
     // run execution
     let executedNodes: CVNode[] = [];
     let readyNodes = checkReadyNodes(this.nodes!, executedNodes, this.vars);
     if (readyNodes.length == 0) throw new Error("No Nodes to Execute");
     while (readyNodes.length > 0) {
-      console.log("Ready Nodes: " + JSON.stringify(readyNodes));
       if (readyNodes.length == 0) throw new Error("Nodes Not Ready");
       let nodePromises: Promise<any>[] = readyNodes.map((node) =>
-        this.execNodes[node.label].execute()
+        this.execNodes[node.id].execute()
       );
       await Promise.all(nodePromises);
-      console.log("Vars afer execution: " + JSON.stringify(this.vars));
       executedNodes.push(...readyNodes);
       readyNodes = checkReadyNodes(this.nodes!, executedNodes, this.vars);
     }

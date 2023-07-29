@@ -3,6 +3,7 @@ import ThreeKPAngle from "./3kptAngle.js";
 import AddInputs from "./addInputs.js";
 import CalcJointAngles from "./calcJointAngles.js";
 import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
+import Clamp from "./clamp.js";
 import Conditional from "./conditional.js";
 import Constant from "./constant.js";
 import CreateKeyPoint from "./createKeyPoint.js";
@@ -18,6 +19,7 @@ import GetVecValue from "./getVecValue.js";
 import KPDist from "./kpDist.js";
 import MultiplyInputs from "./multiplyInputs.js";
 import PoseDetector2D from "./pose2D.js";
+import Round from "./round.js";
 import SetVecValue from "./setVecValue.js";
 import SetKeyPoint from "./setkeyPoint.js";
 import SmoothKeyPoints from "./smoothKeyPoints.js";
@@ -52,6 +54,8 @@ export const NodeCatalog: { [operation: string]: any } = {
   Switch: Switch,
   CreateLabel: CreateLabel,
   DrawLabel: DrawLabel,
+  Round: Round,
+  Clamp: Clamp,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
