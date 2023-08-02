@@ -13,7 +13,11 @@ import {
 // import '@tensorflow/tfjs-backend-wasm';
 
 export default class DrawKeyPoints extends CVNodeProcess {
-  async initialize() {}
+  radius: number = 0.01;
+  async initialize() {
+    if (this.cvnode.parameters[0])
+      this.radius = (this.cvnode.parameters[0].value as number) / 100;
+  }
 
   // 0 - KPFrame
   // 1 - Image
@@ -49,7 +53,7 @@ export default class DrawKeyPoints extends CVNodeProcess {
 
     frame.keypoints.forEach((kp) => {
       ctx?.moveTo(kp.x, kp.y);
-      ctx?.arc(kp.x, kp.y, canvas.width * 0.01, 0, 2 * Math.PI, false);
+      ctx?.arc(kp.x, kp.y, canvas.width * this.radius, 0, 2 * Math.PI, false);
     });
     ctx!.fillStyle = "white";
     ctx?.fill();

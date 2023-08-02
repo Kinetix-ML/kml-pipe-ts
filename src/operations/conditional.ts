@@ -25,7 +25,7 @@ export default class Conditional extends CVNodeProcess {
     let input2 = this.vars[this.cvnode.inputs[1].connection!.id];
 
     this.vars[this.cvnode.outputs[0].id] = eval(
-      `'${input1}' ${this.operator} '${input2}'`
+      `${input1} ${this.operator} ${input2}`
     );
   }
 }
