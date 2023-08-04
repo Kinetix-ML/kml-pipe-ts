@@ -1,6 +1,6 @@
 {
   "name": "kml-pipe-ts",
-  "version": "1.0.74",
+  "version": "1.0.76",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -28,7 +28,7 @@
   "dependencies": {
     "@mediapipe/face_mesh": "^0.4.1633559619",
     "@mediapipe/pose": "^0.5.1675469404",
-    "@mediapipe/tasks-vision": "^0.10.2",
+    "@mediapipe/tasks-vision": "^0.10.3",
     "@tensorflow-models/face-detection": "^1.0.2",
     "@tensorflow-models/face-landmarks-detection": "^1.0.2",
     "@tensorflow-models/pose-detection": "^2.1.0",
