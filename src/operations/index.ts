@@ -8,6 +8,7 @@ import Conditional from "./conditional.js";
 import Constant from "./constant.js";
 import CreateKeyPoint from "./createKeyPoint.js";
 import CreateLabel from "./createLabel.js";
+import CropKeyPoints from "./cropKeyPoints.js";
 import DeconstructKeyPoint from "./deconstructKeyPoint.js";
 import DivideInputs from "./divideInputs.js";
 import DrawKeyPoints from "./drawKeyPoints.js";
@@ -18,6 +19,7 @@ import GetKeyPoint from "./getKeyPoint.js";
 import GetVecValue from "./getVecValue.js";
 import KPDist from "./kpDist.js";
 import MultiplyInputs from "./multiplyInputs.js";
+import NormKeyPoints from "./normKeyPoints.js";
 import PoseDetector2D from "./pose2D.js";
 import PoseDetector3D from "./pose3D.js";
 import Round from "./round.js";
@@ -58,6 +60,8 @@ export const NodeCatalog: { [operation: string]: any } = {
   DrawLabel: DrawLabel,
   Round: Round,
   Clamp: Clamp,
+  CropKeyPoints: CropKeyPoints,
+  NormKeyPoints: NormKeyPoints,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
