@@ -56,6 +56,6 @@ test("PoseDetector2D Executes", async () => {
   const inputTensor = node.decodeImage(imageBuffer);
   vars[input.connection!.id] = inputTensor as CVImage;
   await poseDetector2D.execute();
-  console.log(vars[output.id]);
+  // console.log(vars[output.id]);
   expect(vars[output.id]).toHaveProperty("keypoints");
 });

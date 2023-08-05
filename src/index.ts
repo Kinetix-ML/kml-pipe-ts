@@ -27,22 +27,31 @@ export class KMLPipeline {
     this.apiKey = apiKey;
   }
 
-  async initialize() {
-    let { project, version } = await getProjectVersion(
-      this.projectName,
-      this.projectVersion,
-      this.apiKey
-    );
+  loadConfig(project: Project, version: Version) {
     this.project = project;
     this.version = version;
-    this.pipeline = version.pipeline;
-    this.nodes = version.pipeline.nodes;
+  }
+
+  async initialize() {
+    if (!this.project || !this.version) {
+      let { project, version } = await getProjectVersion(
+        this.projectName,
+        this.projectVersion,
+        this.apiKey
+      );
+      this.project = project;
+      this.version = version;
+    }
+    this.pipeline = this.version.pipeline;
+    this.nodes = this.version.pipeline.nodes;
     let initPromises: Promise<any>[] = [];
-    this.pipeline.nodes.forEach((node) => {
-      let newExecNode = initProcess(node, this.vars);
-      initPromises.push(newExecNode.initialize());
-      this.execNodes[node.id] = newExecNode;
-    });
+    this.pipeline.nodes
+      .filter((node) => this.execNodes[node.id] == undefined)
+      .forEach((node) => {
+        let newExecNode = initProcess(node, this.vars);
+        initPromises.push(newExecNode.initialize());
+        this.execNodes[node.id] = newExecNode;
+      });
     await Promise.all(initPromises);
   }
 
@@ -76,12 +85,14 @@ export class KMLPipeline {
       readyNodes = checkReadyNodes(this.nodes!, executedNodes, this.vars);
     }
 
-    let res = this.pipeline.outputs.map((output) => ({
-      ...output,
-      value: this.vars[output.connection!.id]
-        ? Object.assign(this.vars[output.connection!.id])
-        : undefined,
-    }));
+    let res = this.pipeline.outputs
+      .filter((output) => output.connection != undefined)
+      .map((output) => ({
+        ...output,
+        value: this.vars[output.connection!.id]
+          ? Object.assign(this.vars[output.connection!.id])
+          : undefined,
+      }));
 
     return res;
   }
@@ -100,7 +111,10 @@ const checkReadyNodes = (
     let notExecuted =
       executedNodes.filter((n) => n.label == node.label).length == 0;
     let inputData =
-      node.inputs.filter((input) => vars[input.connection!.id] != undefined)
-        .length == node.inputs.length;
+      node.inputs.filter(
+        (input) =>
+          input.connection != undefined &&
+          vars[input.connection!.id] != undefined
+      ).length == node.inputs.length;
     return notExecuted && inputData;
   });

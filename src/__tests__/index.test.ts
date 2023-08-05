@@ -45,10 +45,10 @@ test("Execute Pipeline from FB", async () => {
     let t0 = Date.now();
     let results = await pipeline.execute([inputTensor as CVImage]);
     let t = Date.now() - t0;
-    console.log(
+    // console.log(
       "Pipeline Execution took " + t + "ms " + 1 / (t / 1000) + "fps"
     );
-    console.log(JSON.stringify(results.map((res) => res.value)));
+    // console.log(JSON.stringify(results.map((res) => res.value)));
     expect(results[0]).toHaveProperty("value");
   }
 });

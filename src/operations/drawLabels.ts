@@ -32,7 +32,7 @@ export default class DrawLabels extends CVNodeProcess {
     if (input == DataType.NoDetections) {
       return;
     }
-    console.log("Labels: " + JSON.stringify(input));
+    // console.log("Labels: " + JSON.stringify(input));
     this.drawLabels(input, image, canvas);
   }
 

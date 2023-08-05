@@ -18,7 +18,7 @@ export default class PoseClassification2D extends CVNodeProcess {
 
   async initialize() {
     // load model from model url
-    console.log(
+    // console.log(
       "loading classifier: " + this.vars[this.cvnode.parameters[0].id]
     );
     this.classifier = await tflite.loadTFLiteModel(

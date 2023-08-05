@@ -19,6 +19,7 @@ import GetVecValue from "./getVecValue.js";
 import KPDist from "./kpDist.js";
 import MultiplyInputs from "./multiplyInputs.js";
 import PoseDetector2D from "./pose2D.js";
+import PoseDetector3D from "./pose3D.js";
 import Round from "./round.js";
 import SetVecValue from "./setVecValue.js";
 import SetKeyPoint from "./setkeyPoint.js";
@@ -30,6 +31,7 @@ import { kptDist } from "./utils.js";
 
 export const NodeCatalog: { [operation: string]: any } = {
   PoseDetection2D: PoseDetector2D,
+  PoseDetection3D: PoseDetector3D,
   CalcJointAngles: CalcJointAngles,
   SmoothKeyPoints: SmoothKeyPoints,
   CalcKeyPointVelocities: CalcKeyPointVelocities,

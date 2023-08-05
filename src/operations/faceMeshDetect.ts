@@ -40,7 +40,7 @@ export default class FaceMeshDetection extends CVNodeProcess {
         this.vars[this.cvnode.inputs[0].connection!.id] as CVImage
       )
       .catch((err) => console.warn(err));
-    console.log(detectorOutput);
+    // console.log(detectorOutput);
     this.vars[this.cvnode.outputs[0].id] =
       detectorOutput && detectorOutput!.length > 0
         ? (detectorOutput![0] as FMFrame)

@@ -20,7 +20,7 @@ export default class Switch extends CVNodeProcess {
   async execute() {
     let input1 = this.vars[this.cvnode.inputs[0].connection!.id];
     let input2 = this.vars[this.cvnode.inputs[1].connection!.id];
-    console.log(
+    // console.log(
       "input 1 val: " + input1 + " input 1 == true: " + (input1 == true)
     );
     if (input1 == true)
