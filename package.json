@@ -1,6 +1,6 @@
 {
   "name": "kml-pipe-ts",
-  "version": "1.0.107",
+  "version": "1.0.108",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -41,6 +41,7 @@
     "@tensorflow/tfjs-tflite": "^0.0.1-alpha.9",
     "cross-fetch": "^4.0.0",
     "install": "^0.13.0",
+    "kml-pipe-ts": "1.0.107",
     "npm": "^9.8.1",
     "roboflow-js": "^0.2.32"
   }
