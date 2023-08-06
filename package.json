@@ -1,6 +1,6 @@
 {
   "name": "kml-pipe-ts",
-  "version": "1.0.105",
+  "version": "1.0.106",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
