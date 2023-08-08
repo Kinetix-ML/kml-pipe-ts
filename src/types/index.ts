@@ -4,6 +4,18 @@ import { Tensor3D } from "@tensorflow/tfjs-core";
 
 export type CVImage = HTMLVideoElement | HTMLImageElement;
 export type KPFrame = Pose;
+export type BBoxFrame = BBox[];
+export type BBox = {
+  class: string;
+  bbox: {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  };
+  confidence: number;
+  color: string;
+};
 export type FMFrame = Face;
 export type Vec = number[];
 export type Double = number;
@@ -15,3 +27,4 @@ export type Label = {
   y: number;
   value: string;
 };
+export type Track = { id: number; bbox: BBox; age: number };

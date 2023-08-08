@@ -14,7 +14,7 @@ import { calc3PtAngle } from "./utils.js";
 import gnrm2 from "@stdlib/blas-base-gnrm2";
 // import '@tensorflow/tfjs-backend-wasm';
 
-export default class NormKeyPoints extends CVNodeProcess {
+export default class NormKeyPointsSize extends CVNodeProcess {
   async initialize() {}
 
   async execute() {
@@ -28,26 +28,42 @@ export default class NormKeyPoints extends CVNodeProcess {
   }
 
   private normCoords(frame: KPFrame): KPFrame {
+    let minY = this.findMinY(frame);
+    let maxY = this.findMaxY(frame);
+    let minX = this.findMinX(frame);
+    let maxX = this.findMaxX(frame);
+    let y = maxY - minY;
+    minX = (maxX + minX) / 2 - y / 2;
+
     let newKeypoints = frame.keypoints.map((kp) => {
-      let vec = this.l2Normalize([kp.x, kp.y]);
       return {
         ...kp,
-        x: vec[0],
-        y: vec[1],
+        x: (kp.x - minX) / y,
+        y: (kp.y - minY) / y,
       };
     });
     let newFrame = { ...frame, keypoints: newKeypoints };
+    console.log(newKeypoints.map((kp) => kp.name));
     return newFrame;
   }
-  private l2Normalize(vector: number[]) {
-    const sumOfSquares = vector[0] ** 2 + vector[1] ** 2;
-    const magnitude = Math.sqrt(sumOfSquares);
 
-    if (magnitude === 0) {
-      // Handle zero vector case to avoid division by zero
-      return [0, 0];
-    }
+  private findMaxY(frame: KPFrame): number {
+    let vals = frame.keypoints.slice().sort((a, b) => b.y - a.y);
+    return vals[0].y;
+  }
 
-    return [vector[0] / magnitude, vector[1] / magnitude];
+  private findMinY(frame: KPFrame): number {
+    let vals = frame.keypoints.slice().sort((a, b) => a.y - b.y);
+    return vals[0].y;
+  }
+
+  private findMaxX(frame: KPFrame): number {
+    let vals = frame.keypoints.slice().sort((a, b) => b.x - a.x);
+    return vals[0].x;
+  }
+
+  private findMinX(frame: KPFrame): number {
+    let vals = frame.keypoints.slice().sort((a, b) => a.x - b.x);
+    return vals[0].x;
   }
 }

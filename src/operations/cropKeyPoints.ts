@@ -37,12 +37,12 @@ export default class CropKeyPoints extends CVNodeProcess {
   }
 
   private findMax(frame: KPFrame): number {
-    let vals = frame.keypoints.sort((a, b) => (a.y >= b.y ? 1 : -1));
+    let vals = frame.keypoints.sort((a, b) => b.y - a.y);
     return vals[0].y;
   }
 
   private findMin(frame: KPFrame): number {
-    let vals = frame.keypoints.sort((a, b) => (a.y <= b.y ? 1 : -1));
+    let vals = frame.keypoints.sort((a, b) => a.y - b.y);
     return vals[0].y;
   }
 

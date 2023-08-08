@@ -7,7 +7,7 @@ import {
   Project,
   Version,
 } from "./base_structs/index.js";
-import { initProcess } from "./operations/index.js";
+import { NodeCatalog, initProcess } from "./operations/index.js";
 import { CVImage } from "./types/index.js";
 
 export class KMLPipeline {
@@ -33,6 +33,7 @@ export class KMLPipeline {
   }
 
   async initialize() {
+    console.log("Pipe-TS Node Catalog: " + Object.keys(NodeCatalog));
     if (!this.project || !this.version) {
       let { project, version } = await getProjectVersion(
         this.projectName,

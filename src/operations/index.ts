@@ -4,13 +4,17 @@ import AddInputs from "./addInputs.js";
 import CalcJointAngles from "./calcJointAngles.js";
 import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
 import Clamp from "./clamp.js";
+import CompareKPFrames from "./compareKPFrames.js";
 import Conditional from "./conditional.js";
 import Constant from "./constant.js";
+import createCrop from "./createCrop.js";
 import CreateKeyPoint from "./createKeyPoint.js";
 import CreateLabel from "./createLabel.js";
+import Crop from "./crop.js";
 import CropKeyPoints from "./cropKeyPoints.js";
 import DeconstructKeyPoint from "./deconstructKeyPoint.js";
 import DivideInputs from "./divideInputs.js";
+import DrawBBoxFrame from "./drawBboxFrame.js";
 import DrawKeyPoints from "./drawKeyPoints.js";
 import DrawLabel from "./drawLabel.js";
 import DrawLabels from "./drawLabels.js";
@@ -20,8 +24,10 @@ import GetVecValue from "./getVecValue.js";
 import KPDist from "./kpDist.js";
 import MultiplyInputs from "./multiplyInputs.js";
 import NormKeyPoints from "./normKeyPoints.js";
+import NormKeyPointsSize from "./normKeyPointsSize.js";
 import PoseDetector2D from "./pose2D.js";
 import PoseDetector3D from "./pose3D.js";
+import RoboflowDetect from "./roboflowDetect.js";
 import Round from "./round.js";
 import SetVecValue from "./setVecValue.js";
 import SetKeyPoint from "./setkeyPoint.js";
@@ -62,6 +68,12 @@ export const NodeCatalog: { [operation: string]: any } = {
   Clamp: Clamp,
   CropKeyPoints: CropKeyPoints,
   NormKeyPoints: NormKeyPoints,
+  CompareKPFrames: CompareKPFrames,
+  DrawBBoxFrame: DrawBBoxFrame,
+  RoboflowDetect: RoboflowDetect,
+  Crop: Crop,
+  CreateCrop: createCrop,
+  NormKeyPointsSize: NormKeyPointsSize,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {
