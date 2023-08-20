@@ -26,7 +26,7 @@ export default class FaceMeshDetection extends CVNodeProcess {
         refineLandmarks: false,
         runtime: "mediapipe",
         maxFaces: 1,
-        solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@${faceMesh.VERSION}`,
+        solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh`,
       };
     this.detector = await faceLandmarksDetection.createDetector(
       model,

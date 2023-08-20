@@ -1,6 +1,6 @@
 {
   "name": "kml-pipe-ts",
-  "version": "1.0.109",
+  "version": "1.0.110",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -8,7 +8,9 @@
   "scripts": {
     "prepublish": "npm run build",
     "test": "jest",
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc",
+    "view": "cd demo && npm run dev",
+    "dev": "tsc-watch --onSuccess 'npm run view'"
   },
   "keywords": [],
   "author": "Kinetix ML",
@@ -17,13 +19,23 @@
     "@inrupt/jest-jsdom-polyfills": "^2.1.0",
     "@types/jest": "^29.5.3",
     "get-image-data": "^5.0.0",
+    "http-server": "^14.1.1",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
     "jsdom": "^22.1.0",
     "jsdom-worker": "^0.3.0",
+    "live-server": "^1.2.2",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "nodemon": "^3.0.1",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
+    "ts-loader": "^9.4.4",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.6",
+    "watch-http-server": "^0.7.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "@mediapipe/face_mesh": "^0.4.1633559619",
@@ -42,7 +54,6 @@
     "cross-fetch": "^4.0.0",
     "install": "^0.13.0",
     "kml-pipe-ts": "1.0.107",
-    "npm": "^9.8.1",
     "roboflow-js": "^0.2.32"
   }
 }
