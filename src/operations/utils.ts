@@ -23,3 +23,15 @@ export const vectorLength = (vals: number[]) => {
 export const kptDist = (kpt1: Keypoint, kpt2: Keypoint) => {
   return vectorLength([kpt2.x - kpt1.x, kpt2.y - kpt1.y]);
 };
+
+export const imageDims = (image: HTMLVideoElement | HTMLImageElement) => {
+  let w =
+    "videoWidth" in image
+      ? (image as HTMLVideoElement).videoWidth
+      : (image as HTMLImageElement).naturalWidth;
+  let h =
+    "videoHeight" in image
+      ? (image as HTMLVideoElement).videoHeight
+      : (image as HTMLImageElement).naturalHeight;
+  return { w, h };
+};
