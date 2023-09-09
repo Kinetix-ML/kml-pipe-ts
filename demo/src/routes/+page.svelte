@@ -34,7 +34,7 @@
   const loadDemoPipe = async () => {
     const { KMLPipeline } = await import('kml-pipe-ts');
     //console.log(KEY);
-    pipe = new KMLPipeline("Face Mesh Test", 1, "79705c77-f57b-449d-b856-03138e8859a7");
+    pipe = new KMLPipeline("PennApps", 1, "79705c77-f57b-449d-b856-03138e8859a7");
     await pipe.initialize();
   };
 
