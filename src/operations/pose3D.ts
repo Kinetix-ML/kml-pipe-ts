@@ -36,7 +36,7 @@ export default class PoseDetector2D extends CVNodeProcess {
     let detectorOutput = await this.detector
       ?.estimatePoses(this.vars[this.cvnode.inputs[0].connection!.id])
       .catch((err) => console.warn(err));
-    console.log(detectorOutput);
+    //console.log(detectorOutput);
     this.vars[this.cvnode.outputs[0].id] =
       detectorOutput && detectorOutput!.length > 0
         ? ({
