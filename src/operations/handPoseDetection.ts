@@ -18,8 +18,8 @@ import * as vision from "@mediapipe/tasks-vision";
 import { imageDims } from "./utils.js";
 //import "@tensorflow/tfjs-backend-wasm";
 
-export default class PoseDetector3D extends CVNodeProcess {
-  detector?: vision.PoseLandmarker;
+export default class HandPoseDetection extends CVNodeProcess {
+  detector?: vision.HandLandmarker;
 
   async initialize() {
     await tf.setBackend("webgl");
@@ -29,16 +29,16 @@ export default class PoseDetector3D extends CVNodeProcess {
       "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
     );
 
-    this.detector = await vision.PoseLandmarker.createFromOptions(
+    this.detector = await vision.HandLandmarker.createFromOptions(
       filesetResolver,
       {
         baseOptions: {
-          modelAssetPath: `https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task`,
+          modelAssetPath:
+            "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
           delegate: "GPU",
         },
-        //outputFaceBlendshapes: true,
         runningMode: "VIDEO",
-        //numFaces: 1,
+        numHands: 2,
       }
     );
   }

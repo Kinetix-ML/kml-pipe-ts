@@ -1,4 +1,7 @@
 import { Keypoint } from "@tensorflow-models/pose-detection";
+import { BBox, Int, Vec } from "../types/index.js";
+import { Tensor } from "@tensorflow/tfjs-core";
+import * as tf from "@tensorflow/tfjs-core";
 
 export const calc3PtAngle = (pt1: Keypoint, pt2: Keypoint, pt3: Keypoint) => {
   let u: [number, number] = [pt1.x - pt2.x, pt1.y - pt2.y];
@@ -34,4 +37,25 @@ export const imageDims = (image: HTMLVideoElement | HTMLImageElement) => {
       ? (image as HTMLVideoElement).videoHeight
       : (image as HTMLImageElement).naturalHeight;
   return { w, h };
+};
+
+export const bboxesToCrops = (boxes: BBox[]) =>
+  boxes.map((bbox) => {
+    let y1 = bbox.bbox.y - bbox.bbox.height / 2;
+    let x1 = bbox.bbox.x - bbox.bbox.width / 2;
+    let y2 = bbox.bbox.y + bbox.bbox.height / 2;
+    let x2 = bbox.bbox.x + bbox.bbox.width / 2;
+    return [y1, x1, y2, x2];
+  });
+
+export const normCrops = (w: Int, h: Int, crops: Vec[]) =>
+  crops.map((crop) => [crop[0] / h, crop[1] / w, crop[2] / h, crop[3] / w]);
+
+export const tensorToBase64 = async (tensor: tf.Tensor3D) => {
+  console.log(tensor.shape);
+  const canvas = document.createElement("canvas");
+  canvas.width = tensor.shape[1] as number;
+  canvas.height = tensor.shape[0] as number;
+  await tf.browser.toPixels(tensor, canvas);
+  return canvas.toDataURL();
 };

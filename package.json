@@ -10,11 +10,11 @@
     "test": "jest",
     "build": "rm -rf dist && tsc",
     "view": "cd demo && npm run dev",
-    "dev": "tsc-watch --onSuccess 'npm run view'"
+    "dev": "export VITE_API=STAGING && tsc-watch --onSuccess 'npm run view'"
   },
   "keywords": [],
   "author": "Kinetix ML",
-  "license": "ISC",
+  "license": "LGPL-3.0-or-later",
   "devDependencies": {
     "@inrupt/jest-jsdom-polyfills": "^2.1.0",
     "@types/jest": "^29.5.3",

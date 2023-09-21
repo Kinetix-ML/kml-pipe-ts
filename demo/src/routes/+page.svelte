@@ -34,7 +34,7 @@
   const loadDemoPipe = async () => {
     const { KMLPipeline } = await import('kml-pipe-ts');
     //console.log(KEY);
-    pipe = new KMLPipeline("PennApps", 1, "79705c77-f57b-449d-b856-03138e8859a7");
+    pipe = new KMLPipeline("Roboflow Test Project", 1, "14630d3f-770a-4a54-a0da-5b5a77cf9234");
     await pipe.initialize();
   };
 

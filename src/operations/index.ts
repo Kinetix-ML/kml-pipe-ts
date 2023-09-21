@@ -11,6 +11,7 @@ import createCrop from "./createCrop.js";
 import CreateKeyPoint from "./createKeyPoint.js";
 import CreateLabel from "./createLabel.js";
 import Crop from "./crop.js";
+import CropBBoxes from "./cropBboxes.js";
 import CropKeyPoints from "./cropKeyPoints.js";
 import DeconstructKeyPoint from "./deconstructKeyPoint.js";
 import DivideInputs from "./divideInputs.js";
@@ -21,12 +22,15 @@ import DrawLabels from "./drawLabels.js";
 import FaceMeshDetection from "./faceMeshDetect.js";
 import GetKeyPoint from "./getKeyPoint.js";
 import GetVecValue from "./getVecValue.js";
+import HandPoseDetection from "./handPoseDetection.js";
 import KPDist from "./kpDist.js";
+import KPVelocity from "./kpVelocity.js";
 import MultiplyInputs from "./multiplyInputs.js";
 import NormKeyPoints from "./normKeyPoints.js";
 import NormKeyPointsSize from "./normKeyPointsSize.js";
 import PoseDetector2D from "./pose2D.js";
 import PoseDetector3D from "./pose3D.js";
+import RoboflowEmbedImages from "./roboflowCLIPAPI.js";
 import RoboflowDetect from "./roboflowDetect.js";
 import Round from "./round.js";
 import SetVecValue from "./setVecValue.js";
@@ -40,8 +44,10 @@ import { kptDist } from "./utils.js";
 export const NodeCatalog: { [operation: string]: any } = {
   PoseDetection2D: PoseDetector2D,
   PoseDetection3D: PoseDetector3D,
+  HandPoseDetection: HandPoseDetection,
   CalcJointAngles: CalcJointAngles,
   SmoothKeyPoints: SmoothKeyPoints,
+  KPVelocity: KPVelocity,
   CalcKeyPointVelocities: CalcKeyPointVelocities,
   SmoothVecs: SmoothVecs,
   DrawKeyPoints: DrawKeyPoints,
@@ -71,7 +77,9 @@ export const NodeCatalog: { [operation: string]: any } = {
   CompareKPFrames: CompareKPFrames,
   DrawBBoxFrame: DrawBBoxFrame,
   RoboflowDetect: RoboflowDetect,
+  RoboflowEmbedImages: RoboflowEmbedImages,
   Crop: Crop,
+  CropBBoxes: CropBBoxes,
   CreateCrop: createCrop,
   NormKeyPointsSize: NormKeyPointsSize,
 };

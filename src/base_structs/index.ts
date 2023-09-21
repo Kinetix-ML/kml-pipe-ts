@@ -65,6 +65,7 @@ export type CVPipeline = {
 export enum DataType {
   CVImage = "Image",
   KPFrame = "KPFrame",
+  BBox = "BBox",
   Vec = "Vec",
   Double = "Double",
   NoDetections = "NoDetections",
