@@ -61,5 +61,19 @@ export default class DrawBBoxFrame extends CVNodeProcess {
         textHeight + 4
       );
     });
+
+    frame.forEach(function (prediction) {
+      const x = prediction.bbox.x;
+      const y = prediction.bbox.y;
+
+      const width = prediction.bbox.width;
+      const height = prediction.bbox.height;
+
+      // Draw the text last to ensure it's on top.
+      ctx!.font = font;
+      ctx!.textBaseline = "top";
+      ctx!.fillStyle = "#000000";
+      ctx!.fillText(prediction.class, x - width / 2 + 4, y - height / 2 + 1);
+    });
   }
 }

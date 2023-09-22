@@ -4,6 +4,7 @@ import AddInputs from "./addInputs.js";
 import CalcJointAngles from "./calcJointAngles.js";
 import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
 import Clamp from "./clamp.js";
+import CompareEmbeddings from "./compareEmbeddings.js";
 import CompareKPFrames from "./compareKPFrames.js";
 import Conditional from "./conditional.js";
 import Constant from "./constant.js";
@@ -11,7 +12,7 @@ import createCrop from "./createCrop.js";
 import CreateKeyPoint from "./createKeyPoint.js";
 import CreateLabel from "./createLabel.js";
 import Crop from "./crop.js";
-import CropBBoxes from "./cropBboxes.js";
+import CropBBoxes from "./cropBBoxes.js";
 import CropKeyPoints from "./cropKeyPoints.js";
 import DeconstructKeyPoint from "./deconstructKeyPoint.js";
 import DivideInputs from "./divideInputs.js";
@@ -31,7 +32,9 @@ import NormKeyPointsSize from "./normKeyPointsSize.js";
 import PoseDetector2D from "./pose2D.js";
 import PoseDetector3D from "./pose3D.js";
 import RoboflowEmbedImages from "./roboflowCLIPAPI.js";
+import RoboflowClassificationAPI from "./roboflowClassificationAPI.js";
 import RoboflowDetect from "./roboflowDetect.js";
+import RoboflowEmbedText from "./roboflowEmbedText.js";
 import Round from "./round.js";
 import SetVecValue from "./setVecValue.js";
 import SetKeyPoint from "./setkeyPoint.js";
@@ -77,7 +80,10 @@ export const NodeCatalog: { [operation: string]: any } = {
   CompareKPFrames: CompareKPFrames,
   DrawBBoxFrame: DrawBBoxFrame,
   RoboflowDetect: RoboflowDetect,
+  RoboflowClassificationAPI: RoboflowClassificationAPI,
   RoboflowEmbedImages: RoboflowEmbedImages,
+  RoboflowEmbedText: RoboflowEmbedText,
+  CompareEmbeddings: CompareEmbeddings,
   Crop: Crop,
   CropBBoxes: CropBBoxes,
   CreateCrop: createCrop,

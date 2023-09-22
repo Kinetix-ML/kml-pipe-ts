@@ -16,6 +16,9 @@ export type BBox = {
   confidence: number;
   color: string;
 };
+export type Classification = {
+  predictions: { class: string; confidence: Double }[];
+};
 export type FMFrame = Face;
 export type Vec = number[];
 export type Double = number;
