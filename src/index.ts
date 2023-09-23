@@ -4,6 +4,7 @@ import {
   CVNodeProcess,
   CVPipeline,
   CVVariable,
+  DataType,
   Project,
   Version,
 } from "./base_structs/index.js";
@@ -69,7 +70,11 @@ export class KMLPipeline {
     // reset execution state
     clearVars(this.vars);
     for (let i = 0; i < inputValues.length; i++) {
-      this.vars[this.pipeline!.inputs[i].id] = inputValues[i] as CVImage;
+      if (this.pipeline!.inputs[i].dataType == DataType.CVImage) {
+        this.vars[this.pipeline!.inputs[i].id] = new CVImage(inputValues[i]);
+      } else {
+        this.vars[this.pipeline!.inputs[i].id] = inputValues[i];
+      }
     }
 
     // run execution

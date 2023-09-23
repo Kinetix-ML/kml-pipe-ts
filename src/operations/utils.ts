@@ -27,18 +27,6 @@ export const kptDist = (kpt1: Keypoint, kpt2: Keypoint) => {
   return vectorLength([kpt2.x - kpt1.x, kpt2.y - kpt1.y]);
 };
 
-export const imageDims = (image: HTMLVideoElement | HTMLImageElement) => {
-  let w =
-    "videoWidth" in image
-      ? (image as HTMLVideoElement).videoWidth
-      : (image as HTMLImageElement).naturalWidth;
-  let h =
-    "videoHeight" in image
-      ? (image as HTMLVideoElement).videoHeight
-      : (image as HTMLImageElement).naturalHeight;
-  return { w, h };
-};
-
 export const bboxesToCrops = (boxes: BBox[]) =>
   boxes.map((bbox) => {
     let y1 = bbox.bbox.y - bbox.bbox.height / 2;
@@ -52,7 +40,6 @@ export const normCrops = (w: Int, h: Int, crops: Vec[]) =>
   crops.map((crop) => [crop[0] / h, crop[1] / w, crop[2] / h, crop[3] / w]);
 
 export const tensorToBase64 = async (tensor: tf.Tensor3D) => {
-  console.log(tensor.shape);
   const canvas = document.createElement("canvas");
   canvas.width = tensor.shape[1] as number;
   canvas.height = tensor.shape[0] as number;

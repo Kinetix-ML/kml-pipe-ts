@@ -37,14 +37,7 @@ export default class DrawLabels extends CVNodeProcess {
   }
 
   private drawLabels(labels: Label[], image: CVImage, canvas: Canvas) {
-    let w =
-      "videoWidth" in image
-        ? (image as HTMLVideoElement).videoWidth
-        : (image as HTMLImageElement).naturalWidth;
-    let h =
-      "videoHeight" in image
-        ? (image as HTMLVideoElement).videoHeight
-        : (image as HTMLImageElement).naturalHeight;
+    let { w, h } = image.getDims();
     let scale = canvas.width / w;
     let offsetY = (h * scale - canvas.height) / 2;
     let scaledLabels = labels.map((label) => ({

@@ -28,13 +28,12 @@ export default class RoboflowEmbedImages extends CVNodeProcess {
 
     let images = Array.isArray(input) ? input : [input];
 
-    let base64strPromises = images.map((im) => tensorToBase64(im));
+    let base64strPromises = images.map((im) => im.getBase64());
     let base64strs = await Promise.all(base64strPromises);
 
     let image = base64strs.map((im) => ({ type: "base64", value: im }));
 
     let payload = JSON.stringify({ image });
-    console.log(payload);
 
     let response = await fetch(this.embedURL, {
       method: "POST",

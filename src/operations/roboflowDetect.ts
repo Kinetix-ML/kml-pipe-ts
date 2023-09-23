@@ -41,7 +41,7 @@ export default class RoboflowDetect extends CVNodeProcess {
 
   async execute() {
     let modelOutput = await this.model?.detect(
-      this.vars[this.cvnode.inputs[0].connection!.id] as CVImage
+      (this.vars[this.cvnode.inputs[0].connection!.id] as CVImage).getHTML()
     );
     this.vars[this.cvnode.outputs[0].id] = modelOutput;
   }

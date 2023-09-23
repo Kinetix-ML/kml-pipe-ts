@@ -7,7 +7,6 @@ import {
   CVVariable,
   DataType,
 } from "../base_structs/index.js";
-import { imageDims } from "./utils.js";
 // import '@tensorflow/tfjs-backend-wasm';
 
 export default class Crop extends CVNodeProcess {
@@ -19,8 +18,11 @@ export default class Crop extends CVNodeProcess {
   async execute() {
     let crop = this.vars[this.cvnode.inputs[0].connection!.id]; // [y1, x1, y2, x2] all between 0 and 1
     let image = this.vars[this.cvnode.inputs[1].connection!.id];
-    let inputTensor = tf.expandDims(tf.browser.fromPixels(image));
-    let cropShape = [inputTensor.shape[1], inputTensor.shape[2]];
+    let inputTensor = image.getTensor4D(); //tf.expandDims(tf.browser.fromPixels(image));
+    let cropShape = [inputTensor.shape[1], inputTensor.shape[2]] as [
+      number,
+      number
+    ];
     let output = tf.image.cropAndResize(
       // @ts-ignore
       inputTensor,

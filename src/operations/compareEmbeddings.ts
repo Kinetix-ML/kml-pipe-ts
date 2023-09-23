@@ -26,10 +26,14 @@ export default class CompareEmbeddings extends CVNodeProcess {
     );
   }
 
-  private compareEmbeddings(e1: Vec[], e2: Vec[]): Vec {
-    let res: Vec = [];
-    for (let i = 0; i < e1.length && i < e2.length; i++) {
-      res.push(this.cosineSimilarity(e1[i], e2[i]));
+  private compareEmbeddings(e1: Vec[], e2: Vec[]): Vec[] {
+    let res: Vec[] = [];
+    for (let x = 0; x < e1.length; x++) {
+      let row: Vec = [];
+      for (let y = 0; y < e2.length; y++) {
+        row.push(this.cosineSimilarity(e1[x], e2[y]));
+      }
+      res.push(row);
     }
     return res;
   }

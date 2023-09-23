@@ -30,7 +30,7 @@ export default class RoboflowClassificationAPI extends CVNodeProcess {
 
     let images = Array.isArray(input) ? input : [input];
 
-    let base64strPromises = images.map((im) => tensorToBase64(im));
+    let base64strPromises = images.map((im) => im.getBase64());
     let base64strs = await Promise.all(base64strPromises);
 
     let classificationPromises = base64strs.map((im) => this.classifyImage(im));

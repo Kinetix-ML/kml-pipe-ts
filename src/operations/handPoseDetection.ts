@@ -15,7 +15,6 @@ import {
 
 //@ts-ignore
 import * as vision from "@mediapipe/tasks-vision";
-import { imageDims } from "./utils.js";
 //import "@tensorflow/tfjs-backend-wasm";
 
 export default class HandPoseDetection extends CVNodeProcess {
@@ -44,12 +43,12 @@ export default class HandPoseDetection extends CVNodeProcess {
   }
 
   async execute() {
-    let { w, h } = imageDims(
+    let { w, h } = (
       this.vars[this.cvnode.inputs[0].connection!.id] as CVImage
-    );
+    ).getDims();
     let startMS = performance.now();
     let detectorOutput = this.detector?.detectForVideo(
-      this.vars[this.cvnode.inputs[0].connection!.id] as CVImage,
+      (this.vars[this.cvnode.inputs[0].connection!.id] as CVImage).getHTML(),
       startMS
     );
     let outputs =

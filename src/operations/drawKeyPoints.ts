@@ -33,14 +33,7 @@ export default class DrawKeyPoints extends CVNodeProcess {
   }
 
   private drawKeyPoints(frame: KPFrame, image: CVImage, canvas: Canvas) {
-    let w =
-      "videoWidth" in image
-        ? (image as HTMLVideoElement).videoWidth
-        : (image as HTMLImageElement).naturalWidth;
-    let h =
-      "videoHeight" in image
-        ? (image as HTMLVideoElement).videoHeight
-        : (image as HTMLImageElement).naturalHeight;
+    let { w, h } = image.getDims();
     let scale = canvas.width / w;
     let offsetY = (h * scale - canvas.height) / 2;
     frame.keypoints = frame.keypoints.map((kp) => ({

@@ -7,7 +7,7 @@ import {
   CVVariable,
   DataType,
 } from "../base_structs/index.js";
-import { bboxesToCrops, imageDims, normCrops } from "./utils.js";
+import { bboxesToCrops, normCrops } from "./utils.js";
 // import '@tensorflow/tfjs-backend-wasm';
 
 export default class CropBBoxes extends CVNodeProcess {
@@ -23,8 +23,8 @@ export default class CropBBoxes extends CVNodeProcess {
     let boxes = this.vars[this.cvnode.inputs[0].connection!.id]; // BBox[]
     if (boxes.length == 0) return;
     let crops = bboxesToCrops(boxes);
-    let image = this.vars[this.cvnode.inputs[1].connection!.id];
-    let inputTensor = tf.expandDims(tf.browser.fromPixels(image));
+    let image = this.vars[this.cvnode.inputs[1].connection!.id] as CVImage;
+    let inputTensor = image.getTensor4D(); //tf.expandDims(tf.browser.fromPixels(image));
     inputTensor = tf.div(inputTensor, 256);
     let cropShape = [inputTensor.shape[1], inputTensor.shape[2]];
     crops = normCrops(cropShape[1] as number, cropShape[0] as number, crops);
@@ -37,7 +37,7 @@ export default class CropBBoxes extends CVNodeProcess {
     );
     let images = tf
       .split(output, output.shape[0], 0)
-      .map((im) => tf.squeeze(im));
+      .map((im) => new CVImage(tf.squeeze(im)));
 
     // Note: cropAndResize() crops to square images resized to a specific value
 
