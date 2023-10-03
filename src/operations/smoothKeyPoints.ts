@@ -26,7 +26,8 @@ export default class SmoothKeyPoints extends CVNodeProcess {
       this.vars[this.cvnode.outputs[0].id] = DataType.NoDetections;
       return;
     }
-    this.buffer.push(input);
+    console.log(input);
+    this.buffer.push(Object.assign(input));
     if (this.buffer.length > this.frameCount) this.buffer.shift();
     this.vars[this.cvnode.outputs[0].id] = this.averageFrames(this.buffer);
   }
@@ -39,6 +40,7 @@ export default class SmoothKeyPoints extends CVNodeProcess {
         (acc, cur) => acc + (cur.keypoints[i].score as number),
         0
       );
+      console.log(sumScores);
 
       // calculate new x value using weighted average of all of the x coordinates
       let newX = buffer.reduce(
@@ -56,6 +58,15 @@ export default class SmoothKeyPoints extends CVNodeProcess {
         0
       );
 
+      // calculate new y value using weighted average of all of the y coordinates
+      let newZ = buffer.reduce(
+        (acc, cur) =>
+          acc +
+          (cur.keypoints[i].z ?? 0) *
+            ((cur.keypoints[i].score as number) / sumScores),
+        0
+      );
+
       // calculate new score value using average of all of the scores coordinates
       let newScore =
         buffer.reduce(
@@ -67,6 +78,7 @@ export default class SmoothKeyPoints extends CVNodeProcess {
       res.keypoints[i] = {
         x: newX,
         y: newY,
+        z: newZ,
         score: newScore,
         name: res.keypoints[i].name,
       };

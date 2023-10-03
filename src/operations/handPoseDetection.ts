@@ -15,6 +15,7 @@ import {
 
 //@ts-ignore
 import * as vision from "@mediapipe/tasks-vision";
+import { Keypoint } from "@tensorflow-models/face-landmarks-detection";
 //import "@tensorflow/tfjs-backend-wasm";
 
 export default class HandPoseDetection extends CVNodeProcess {
@@ -51,6 +52,7 @@ export default class HandPoseDetection extends CVNodeProcess {
       (this.vars[this.cvnode.inputs[0].connection!.id] as CVImage).getHTML(),
       startMS
     );
+
     let outputs =
       detectorOutput.landmarks && detectorOutput.landmarks!.length > 0
         ? ({
@@ -60,14 +62,30 @@ export default class HandPoseDetection extends CVNodeProcess {
 
     if (outputs == DataType.NoDetections) {
       this.vars[this.cvnode.outputs[0].id] = outputs;
+      this.vars[this.cvnode.outputs[1].id] = outputs;
+      this.vars[this.cvnode.outputs[2].id] = outputs;
       return;
     }
+
+    let conf = detectorOutput.handednesses[0][0].score;
     outputs.keypoints = outputs.keypoints.map((o) => ({
       x: o.x * w,
       y: o.y * h,
       z: o.z,
+      score: conf,
     }));
     this.vars[this.cvnode.outputs[0].id] = outputs;
+    this.vars[this.cvnode.outputs[1].id] = {
+      ...outputs,
+      keypoints: detectorOutput.worldLandmarks[0].map((kp: Keypoint) => ({
+        ...kp,
+        y: -kp.y,
+        score: 1,
+      })),
+    };
+    this.vars[this.cvnode.outputs[2].id] =
+      detectorOutput.handednesses[0][0].displayName;
+
     //console.log(this.vars[this.cvnode.outputs[0].id]);
   }
 }

@@ -1,6 +1,7 @@
 import { CVNode, CVNodeProcess } from "../base_structs/index.js";
 import ThreeKPAngle from "./3kptAngle.js";
 import AddInputs from "./addInputs.js";
+import AddKeypoints from "./addKeypoints.js";
 import CalcJointAngles from "./calcJointAngles.js";
 import CalcKeyPointVelocities from "./calcKeyPointVelocities.js";
 import Clamp from "./clamp.js";
@@ -31,6 +32,7 @@ import NormKeyPoints from "./normKeyPoints.js";
 import NormKeyPointsSize from "./normKeyPointsSize.js";
 import PoseDetector2D from "./pose2D.js";
 import PoseDetector3D from "./pose3D.js";
+import { RacketOrientation } from "./racketOrientation.js";
 import RoboflowEmbedImages from "./roboflowCLIPAPI.js";
 import RoboflowClassificationAPI from "./roboflowClassificationAPI.js";
 import RoboflowDetect from "./roboflowDetect.js";
@@ -88,6 +90,8 @@ export const NodeCatalog: { [operation: string]: any } = {
   CropBBoxes: CropBBoxes,
   CreateCrop: createCrop,
   NormKeyPointsSize: NormKeyPointsSize,
+  RacketOrientation: RacketOrientation,
+  AddKeypoints: AddKeypoints,
 };
 
 export const initProcess = (cvnode: CVNode, vars: { [id: string]: any }) => {

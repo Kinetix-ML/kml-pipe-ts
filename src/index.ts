@@ -59,7 +59,7 @@ export class KMLPipeline {
 
   async execute(inputValues: any[]) {
     // make sure inputs are correct
-    if (inputValues.length != this.pipeline?.inputs.length)
+    if (inputValues.length < (this.pipeline?.inputs.length ?? 0))
       throw new Error(
         "[Pipeline Execution Error] Incorrect Number of Inputs. Expected: " +
           this.pipeline?.inputs.length +
@@ -69,7 +69,7 @@ export class KMLPipeline {
 
     // reset execution state
     clearVars(this.vars);
-    for (let i = 0; i < inputValues.length; i++) {
+    for (let i = 0; i < (this.pipeline?.inputs.length ?? 0); i++) {
       if (this.pipeline!.inputs[i].dataType == DataType.CVImage) {
         this.vars[this.pipeline!.inputs[i].id] = new CVImage(inputValues[i]);
       } else {
@@ -91,14 +91,14 @@ export class KMLPipeline {
       readyNodes = checkReadyNodes(this.nodes!, executedNodes, this.vars);
     }
 
-    let res = this.pipeline.outputs
-      .filter((output) => output.connection != undefined)
-      .map((output) => ({
-        ...output,
-        value: this.vars[output.connection!.id]
-          ? Object.assign(this.vars[output.connection!.id])
-          : undefined,
-      }));
+    let res = this.pipeline!.outputs.filter(
+      (output) => output.connection != undefined
+    ).map((output) => ({
+      ...output,
+      value: this.vars[output.connection!.id]
+        ? Object.assign(this.vars[output.connection!.id])
+        : undefined,
+    }));
 
     return res;
   }

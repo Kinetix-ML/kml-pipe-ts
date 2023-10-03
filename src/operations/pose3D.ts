@@ -15,6 +15,7 @@ import {
 
 //@ts-ignore
 import * as vision from "@mediapipe/tasks-vision";
+import { Keypoint } from "@tensorflow-models/face-landmarks-detection";
 //import "@tensorflow/tfjs-backend-wasm";
 
 export default class PoseDetector3D extends CVNodeProcess {
@@ -60,14 +61,24 @@ export default class PoseDetector3D extends CVNodeProcess {
 
     if (outputs == DataType.NoDetections) {
       this.vars[this.cvnode.outputs[0].id] = outputs;
+      this.vars[this.cvnode.outputs[1].id] = outputs;
       return;
     }
     outputs.keypoints = outputs.keypoints.map((o) => ({
       x: o.x * w,
       y: o.y * h,
       z: o.z,
+      score: 1.0,
     }));
     this.vars[this.cvnode.outputs[0].id] = outputs;
+    this.vars[this.cvnode.outputs[1].id] = {
+      ...outputs,
+      keypoints: detectorOutput.worldLandmarks[0].map((kp: Keypoint) => ({
+        ...kp,
+        y: -kp.y,
+        score: 1.0,
+      })),
+    };
     //console.log(this.vars[this.cvnode.outputs[0].id]);
   }
 }
