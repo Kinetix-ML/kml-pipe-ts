@@ -38,7 +38,8 @@ export default class HandPoseDetection extends CVNodeProcess {
           delegate: "GPU",
         },
         runningMode: "VIDEO",
-        numHands: 2,
+        numHands: 1,
+        minTrackingConfidence: 0.01,
       }
     );
   }
