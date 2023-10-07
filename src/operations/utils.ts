@@ -46,3 +46,19 @@ export const tensorToBase64 = async (tensor: tf.Tensor3D) => {
   await tf.browser.toPixels(tensor, canvas);
   return canvas.toDataURL();
 };
+
+export const dotProduct3D = (a: Vec, b: Vec): number => {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+};
+
+export const crossProduct3D = (a: Vec, b: Vec): Vec => {
+  return [
+    a[1] * b[2] - a[2] * b[1],
+    a[2] * b[0] - a[0] * b[2],
+    a[0] * b[1] - a[1] * b[0],
+  ];
+};
+
+export const magnitude3D = (v: Vec): number => {
+  return Math.sqrt(dotProduct3D(v, v));
+};
